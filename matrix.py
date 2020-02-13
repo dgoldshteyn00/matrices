@@ -37,10 +37,12 @@ def identity(matrix):
 # multiply m1 by m2, modifying m2 to be the product
 # m1 * m2 -> m2
 def matrix_multiply(m1, m2):
+    result = new_matrix()
     for i in range(0, len(m1)):
         for j in range(0, len(m2[0])):
             for k in range(0, len(m2)):
-                m2[i][j] += m1[i][k] + m2[j][k]
+                result[i][j] += m1[i][k] * m2[j][k]
+    m2 = result
     print_matrix(m2)
 
 
