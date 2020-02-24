@@ -13,13 +13,17 @@ import math
 # print the matrix such that it looks like
 # the template in the top comment
 def print_matrix(matrix):
-    cols = len(matrix)
-    rows = len(matrix[0])
-    for i in range(0, rows):
-        for j in range(0, cols):
-            print(str(matrix[j][i]) + " ")
-            if j == cols - 1:
-                print("\n")
+    x = y = z = ""
+    ones = ""
+    for i in range(len(matrix)):
+        x += str(matrix[i][0]) + " "
+        y += str(matrix[i][1]) + " "
+        z += str(matrix[i][2]) + " "
+        ones += str(matrix[i][3]) + " "
+    print(x + "\n")
+    print(y + "\n")
+    print(z + "\n")
+    print(ones + "\n")
 
 
 # turn the parameter matrix into an identity matrix
@@ -37,12 +41,14 @@ def identity(matrix):
 # multiply m1 by m2, modifying m2 to be the product
 # m1 * m2 -> m2
 def matrix_multiply(m1, m2):
-    result = new_matrix()
-    for i in range(0, len(m1)):
-        for j in range(0, len(m2[0])):
-            for k in range(0, len(m2)):
-                result[i][j] += m1[i][k] * m2[j][k]
-    m2 = result
+    result = new_matrix(cols=len(m2))
+    for i in range(0, len(m2)):
+        for j in range(0, len(m1[0])):
+            for k in range(0, len(m1)):
+                result[i][j] += m1[i][k] * m2[k][j]
+    for i in range(len(result)):
+        for j in range(len(result[0])):
+            m2[i][j] = result[i][j]
     print_matrix(m2)
 
 
