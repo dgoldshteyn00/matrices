@@ -1,10 +1,46 @@
 from display import *
 from draw import *
 from matrix import *
+import random
 
 screen = new_screen()
-color = [0, 255, 0]
-matrix = new_matrix()
 
-draw_lines(matrix, screen, color)
-display(screen)
+
+def prepare():
+    red = 0
+    for i in range(250):
+        matrix = new_matrix()
+        add_point(matrix, 0, i)
+        add_point(matrix, 500, i)
+        draw_lines(matrix, screen, [red, 0, red])
+        red += 1
+    red = 250
+    for i in range(250):
+        matrix = new_matrix()
+        add_point(matrix, 0, i)
+        add_point(matrix, 500, i)
+        draw_lines(matrix, screen, [red, 0, red])
+        red -= 1
+
+
+def draw_polygon():
+    blue = 0
+    for i in range(500):
+        matrix = new_matrix()
+        add_edge(matrix, i, 0, 0, 0, 500 - i, 0)
+        add_edge(matrix, 0, 500 - i, 0, 500 - i, 500, 0)
+        add_edge(matrix, 500 - i, 500, 0, 500, i, 0)
+        add_edge(matrix, 500, i, 0, i, 0, 0)
+        draw_lines(matrix, screen, [blue, 0, blue])
+        print_matrix(matrix)
+        if blue > 254:
+            blue -= 15
+        else:
+            blue += 1
+
+
+prepare()
+draw_polygon()
+
+save_ppm_ascii(screen, 'polygon.ppm')
+print("polygon.ppm")
